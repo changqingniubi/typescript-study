@@ -25,7 +25,7 @@ let p: Person = {
 getName(p);
 
 //基本数据类型的兼容性 
-/* let num:string |number;
+let num:string |number;
 let str:string = 'zhufeng';
 num = str;
 
@@ -33,8 +33,8 @@ let num2:{
     toString():string
 }
 let str2:string = 'jiagou';
-num2 = str2; */
-//str2 = num2;
+num2 = str2; 
+//str2 = num2; //Type '{ toString(): string; }' is not assignable to type 'string'
 
 //类的兼容性
 namespace ab{
@@ -42,10 +42,22 @@ namespace ab{
     class Bird extends Animal {age:number}
     let a: Animal;
     let b: Bird;
-    a=b;
-    //b=a;
+    a=new Bird();
+    //b=new Animal(); //Property 'age' is missing in type 'Animal' but required in type 'Bird'.
 }
-
+namespace cd{
+  //甚至没有关系的两个类的实例也是可以的
+  class Animal{
+    name:string
+  }
+  class Bird{
+    name:string
+  }
+  let a:Animal ;
+  a = new Bird();
+  let b:Bird;
+  b = new Animal();
+}
 //函数的兼容性 难点!!!!!
 //比较参数 比较返回值
 type Func = (a:number,b:number)=>void;
@@ -60,10 +72,9 @@ sum = f2;
 function f3(): void {}
 sum = f3;
 function f4(a: number, b: number,c:number): void {}
-//sum = f4;
+//sum = f4; // Type '(a: number, b: number, c: number) => void' is not assignable to type 'Func
 //map函数,传的可以是一个也可以是2个  map(item,index)
 sum(1,2);
-//比较返回值
 
 type GetPerson = ()=>{name:string,age:number}
 let getPerson: GetPerson;

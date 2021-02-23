@@ -22,7 +22,6 @@ namespace b {
     }
     let com = Component;
     Component.myName = '静态名称属性';
-    //let c: Component = new Component();
     let f: typeof Component = com;
 }
 

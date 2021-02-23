@@ -30,12 +30,12 @@ class Child extends Father {
     }
 }
 //动物 哺乳动物
-let father = new Father('zhufeng', 11, 1);
+//let father = new Father('zhufeng', 11, 1);
 //father.toString()
-let child = new Child('zhufeng',11,1);
-//console.log(child.name);
+ let child = new Child('zhufeng',11,1);
+ console.log(child.name);
 
-child.toString()
+ child.toString()
 
 //Child.fatherName;
 //Child.childName;

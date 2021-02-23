@@ -16,19 +16,21 @@ let dog: Dog;
 let blackDog: BlackDog;
 let whiteDog: WhiteDog;
 type Callback = (dog: Dog) => Dog;
-function exec(callback: Callback): void {}
+function exec(callback: Callback): void {
+  callback(whiteDog);
+}
 /**
  * 参数可以传自己和自己的父类
  * 返回值可以传自己和自己的子类
  * 四种情况
- * 1.参数传子类返回值子类  y
+ * 1.参数传子类返回值子类  n
  * 2.参数是子类返回值是父类 n
- * 3.参数是父类返回值是父类 y
+ * 3.参数是父类返回值是父类 n
  * 4.参数是父类返值是子类 y
  */
 type ChildToChild = (blackDog: BlackDog) => BlackDog;
 let childToChild: ChildToChild;
-//exec(childToChild);//n
+exec(childToChild);//n
 type ChildToParent = (blackDog: BlackDog) => Animal;
 let childToParent: ChildToParent;
 //exec(childToParent);//n

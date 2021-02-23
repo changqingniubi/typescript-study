@@ -61,7 +61,7 @@ interface Person3{
 let p3:Person3 = {
     id:1
 }
-//p3.id = 2;
+//p3.id = 2; // Cannot assign to 'id' because it is a read-only property
 
 // 函数类型接口
 interface Discount{

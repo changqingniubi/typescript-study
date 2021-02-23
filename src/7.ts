@@ -13,6 +13,7 @@ Object.defineProperty(Person.prototype,'say',{
 //类装饰器工厂
 
 namespace a{
+    //当装饰器作为修饰类的时候，会把构造器传递进去
     function addNameEat(x: Function) {
         x.prototype.name = 'zhufeng';
         x.prototype.eat = function () { }
@@ -24,13 +25,14 @@ namespace a{
         eat: Function;
         constructor() { }
     }
-    let p: Person = new Person();
+    //let p: Person = new Person();
     //console.log(p.name);
-   // p.eat();
+    //p.eat();
 }
 
 
 namespace b{
+    //还可以使用装饰器工厂
     function addNameEatFactory(name: string) {
         return function addNameEat(x: Function) {
             x.prototype.name = name;
@@ -44,16 +46,18 @@ namespace b{
         constructor() { }
     }
     let p: Person = new Person();
-    //console.log(p.name);
-    //p.eat();
+    console.log(p.name);
+    p.eat();
 }
 //可以多,但不能少
 ///类型安全
 namespace c{
     function replaceClass(constructor: Function) {
         return class {
-            name: string;
-            eat: Function;
+            name: string = "jiagou";
+            eat() {
+                console.log("吃饭饭");
+            };
             age:number;
             constructor() { }
         }
@@ -65,8 +69,8 @@ namespace c{
         constructor() { }
     }
     let p: Person = new Person();
-    //console.log(p.name);
-    //p.eat();
+    console.log(p.name);
+    p.eat();
 }
 
 //属性装饰器
@@ -116,15 +120,15 @@ namespace d {
          }
      }
      let p = new Person();
-     //console.log(p.name);
-     //console.log(p.sum('1', '2', '3'));
+     console.log(p.name);
+     console.log(p.sum('1', '2', '3'));
 }
 //参数装饰器
 namespace e{
  //手写一个IOC
  //在IOC容器里大放异彩  Nest.js大量的用到了参数装饰器
  //target 静态成员就是构造函数 非静态成员就是构造函数原型 方法的名称 参数的索引
- function addAge(target:any,methodName,paramIndex:number){
+ function addAge(target:any,methodName:string,paramIndex:number){
      console.log(target, methodName, paramIndex);
      target.age = 10;
  }
@@ -140,27 +144,27 @@ namespace e{
 //装饰器的执行顺序
 namespace f {
     function ClassDecorator1(){
-        return function(target){
+        return function(target:any){
             console.log('ClassDecorator1');
         }
     }
     function ClassDecorator2() {
-        return function (target) {
+        return function (target:any) {
             console.log('ClassDecorator2');
         }
     }
     function PropertyDecorator(name:string) {
-        return function (target,propertyName) {
+        return function (target:any,propertyName:string) {
             console.log('PropertyDecorator', propertyName, name);
         }
     }
     function MethodDecorator() {
-        return function (target, propertyName) {
+        return function (target:any,propertyName:string) {
             console.log('MethodDecorator', propertyName);
         }
     }
     function ParameterDecorator() {
-        return function (target, methodName,index) {
+        return function (target:any, methodName:string,index:number) {
             console.log('ParameterDecorator', methodName, index);
         }
     }

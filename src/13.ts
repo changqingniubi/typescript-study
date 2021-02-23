@@ -73,7 +73,20 @@ console.log(array.getMax());
   return new type();
  }
  class Person{}
- let p = factory<Person>(Person);
+ let p:Person= factory<Person>(Person);
+console.log(p);
+
+
+function factory2<T>(type:{new(name:string):T},name:string):T{
+  return new type(name);
+ }
+ class Person2{
+   name:string;
+   constructor(name:string){
+    this.name=name;
+   }
+ }
+ let p2:Person2 = factory2<Person2>(Person2,'张三');
 console.log(p);
 //泛型接口
 interface Calculate<T>{
@@ -97,22 +110,27 @@ interface Calculate3<T>{
   <U>(a:T,b:T):U
 }
 let sum3: Calculate3<number> = function <U>(a: number, b: number): U {
-  return a as any;
+  return a as any
 };
-sum3<string>(1, 2);
+let res = sum3<string>(1, 2);
 
 //泛型可以写多个
 function swap<A,B>(tuple:[A,B]):[B,A]{
    return [tuple[1],tuple[0]];
 }
 //默认泛型
-/*  function createArray<T=number>(length: number, value: T): Array<T> {
-   let result: T[] = [];
-   for (let i = 0; i < length; i++) {
-     result[i] = value;
-   }
-   return result;
- } */
+
+function createArray3<T=number>(length: number, value: T): Array<T> {
+  let result: T[] = [];
+  for (let i = 0; i < length; i++) {
+    result[i] = value;
+  }
+  return result;
+}
+let result2 = createArray3(3,'x');
+console.log(result2);
+
+
  //TODO
 interface T2<T=string>{
 

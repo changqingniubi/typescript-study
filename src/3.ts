@@ -40,6 +40,9 @@ class Animal{
         //this.name = name;
     }
 }
+let a = new Animal('zhufeng');
+a.changeName('jiagou');
+
 //public protected private  稍后再讲
 
 //继承

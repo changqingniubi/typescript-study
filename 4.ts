@@ -16,13 +16,14 @@ function proxify<T>(obj:T):Proxify<T>{
   for(const key in obj){
       Object.defineProperty(result, key, {
           get: () => {
-              console.log('get ', key);
+              //console.log('get ', key);
               return obj[key];
           },
           set: (value) => {
-              console.log('set ', key, value);
+              //console.log('set ', key, value);
               obj[key] = value;
-          }
+          },
+          enumerable: true 
       });
   }
     return result;
@@ -51,7 +52,6 @@ function unProxify<T>(t:Proxify<T>):T{
 }
 let originalProps = unProxify<Props>(proxyProps);
 console.log(originalProps);
-
 
 
 

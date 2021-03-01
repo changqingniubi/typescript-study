@@ -36,7 +36,7 @@ namespace nb {
 }
 
 namespace nc {
-//Overwrite
+    //Overwrite
     type OldProps = { name: string, age: number, visible: boolean };
     type NewProps = {age:string,other:string};
     //{ name: string,visible: boolean ,age:string}
@@ -50,10 +50,6 @@ namespace nc {
        // {name: string,visible: boolean }  &  {age:string}  {name: string,visible: boolean,age:string }
        I = Diff<T,U> & InterSection<U,T>
     >=Pick<I,keyof I>
-    //{ name: string, age: string, visible: boolean };
-    //{ name: string, age: string, visible: boolean,other:string };
-    //type ReplacedProps = Overwrite<OldProps, NewProps>;
-    //type ReplacedProps = OldProps& NewProps;
     type ReplacedProps = Overwrite<OldProps, NewProps>;
     let p: ReplacedProps={name:'',age:'',visible:true}
 
@@ -70,24 +66,24 @@ namespace nd {
         id:number;
         age:number;
     }
-    //{id:number,name:string,age:number}
-    //type R2 = Merge<O1,O2>;
     type Compute<A extends  any>=A extends Function?A:{[K in keyof A]:A[K]}
-    type Compute2<A>= A;
-    type R1 = Compute<string>;//{x:'x',y:'y'}
+    type R1 = Compute<string>;
+    type R11 = Compute<{x:'x',y:'y'}>;//
+    type R12=Omit<O2,keyof O1>
+    type R13=O1&R12;
+    type R14 = Compute<O1>
     type Omit<T, K extends keyof any> = Pick<T, SetDifference<keyof T, K>>;
     type Merge<O1 extends object, O2 extends object> = Compute<
       O1&Omit<O2,keyof O1>
     >
     type R2 = Merge<O1,O2>;
-    /**
-    type R2 = {
-        id: number;
-        name: string;
-        age: number;
+    
+    let r2: R2 = {
+        id: 1,
+        name: '1',
+        age: 1
     }
-     * 
-     */
+     
 
      type K1 = any;
      let K:K1 =true;
@@ -102,4 +98,29 @@ namespace nd {
 
     
 
+}
+
+
+
+namespace ne{
+
+    type O1 ={
+        id:number;
+        readonly name:string
+    }
+    let o1:O1={
+        id:1,
+        name:'aa'
+    }
+    //o1.name='bb' //(property) name: string Cannot assign to 'name' because it is a read-only property.
+
+    type Mutable<T> = {
+        -readonly [P in keyof T]: T[P]
+    }
+    type O2=Mutable<O1>
+    let o2:O2={
+        id:1,
+        name:'aa'
+    }
+    o2.name='bb';
 }

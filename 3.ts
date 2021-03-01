@@ -56,7 +56,8 @@ namespace namespaceB {
     type Readonly<T> = {
         readonly [P in keyof T]: T[P];
     };
-    type ReadOnlyNamePerson = Person&{
+    type ReadOnlyNamePerson = Readonly<Person>;
+    type ReadOnlyNamePerson2 = Person&{
         readonly name:string;
     };
     let p: ReadOnlyNamePerson = {
@@ -64,7 +65,7 @@ namespace namespaceB {
         age: 11
     }
     //p.name = 'jiagou';
-    p.age = 11;
+    //p.age = 11;
 }
 
 namespace namespaceC {
@@ -89,21 +90,28 @@ namespace namespaceC {
     let e: E = '1';
 
 }
-
+//Record
 namespace namespaceD {
   /*   for(let xxx in [string,number]){
 
     } */
   type KeyOfAny = keyof any; //string | number | symbol 联合类型
   type Record<K extends keyof any, T> = {
-      [xxx in K]: T;
+      [P in K]: T;
        //[]表示任意属性
       //[key: string]: string,
       //[key: number]: string
   };
   let k: Record<string|number,string>= {name:'zhufeng',age:'11'};  
 
-  //Record
+  type Point = 'x' | 'y';
+  type PointList = Record<Point, { value: number }>
+  const cars: PointList = {
+      x: { value: 10 },
+      y: { value: 20 }
+  }
+
+  
   function mapObject<K extends string|number,T,U>(obj:Record<K,T>,map:(x:T)=>U){
     let result: Record<K, U> = <Record<K, U>>{};
     for(const key in obj){
@@ -113,7 +121,7 @@ namespace namespaceD {
   }
   let obj = {count1:1,count2:2,3:3};
   let map = (x: number):string => x * 2 + '';
-  let newObj = mapObject<string | number, number, string>(obj, map);//{count1:2,count2:4}
+  let newObj = mapObject<string | number, number, string>(obj, map);//{'3': '6',count1:2,count2:4}
 }
 
 namespace namespaceE   {

@@ -14,9 +14,17 @@ function isBird(y:Bird|Dog):y is Bird{
   return (y as Bird).swing == 2;
 }
 function getAnimal(x: Bird | Dog) {
-    if(isBird(x)){
-        console.log(x);
-    }else{
-        console.log(x);
-    }
+  if (isBird(x)) {
+    return x.swing;
+  }
+  return x.leg;
 }
+
+let a1:Bird={
+  swing:2
+}
+let a2:Dog={
+  leg:4
+}
+console.log(getAnimal(a1)) //2
+console.log(getAnimal(a2)) //4

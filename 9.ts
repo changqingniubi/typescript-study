@@ -8,4 +8,4 @@ dogOfZoo.eat(); */
 export namespace zoo {
     export class Cat { eat() { console.log('zoo dog'); } }
 }
-let Animal = new zoo.Dog();
+let Cat = new zoo.Cat();

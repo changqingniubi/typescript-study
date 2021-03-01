@@ -19,7 +19,14 @@ let fn = (a, b) => {
 }
 let sum: Sum = fn
 let sum2: Sum2 = fn
-//sum2 = sum1;
+//sum2 = sum;
+
+type Sum3 = (a: number, b: number) => number;
+let sum33: Sum3 = (a, b) => {
+    a='zhufeng'; // Type 'string' is not assignable to type 'number'
+    return a + b;
+};
+
 let person = {
     name:'zhufeng',
     age:11
@@ -54,10 +61,9 @@ function addOne(a:any){
 function sum3(a:number,b:number){
    return a+addOne(b) as number;
 }
-let k = sum3(1,2);
-//number+any = any
+let j = addOne(1); // any
+let k = sum3(1,2); //number+any = any
 
-//& 
 
 interface Bird{
     name:string;
@@ -149,9 +155,9 @@ interface Person6{
     gender:'male'|'female'
 }
 //批量把一个接口中的属性全部变成可选的
-/* type PartialPerson = {
+type PartialPerson = {
     [key in keyof Person6]?: Person6[key]
-} */
+}
 type Partial<T> = {
     [key in keyof T]?: T[key]
 }
@@ -162,3 +168,29 @@ let o1 = {name:'zhufeng'};
 type O1 = typeof o1;
 
 type K6 = keyof Person6;
+
+
+
+interface Person7{
+    name:string;
+    age:number;
+    gender:'male'|'female';
+  }
+  //type PersonKey = 'name'|'age'|'gender';
+  type PersonKey = keyof Person7;
+  
+  function getValueByKey(p:Person7,key:PersonKey){
+    return p[key];
+  }
+  let val = getValueByKey({name:'zhufeng',age:10,gender:'male'},'name');
+  console.log(val);
+
+
+  function pick<T, K extends keyof T>(o: T, names: K[]): T[K][] {
+    return names.map((n) => o[n]);
+  }
+  let user = { id: 1, name: 'zhufeng',age: 10, };
+  type User = typeof user;
+  type key = keyof User;
+  const res = pick<User, keyof User>(user, ["id", "name",'age']);
+  console.log(res);

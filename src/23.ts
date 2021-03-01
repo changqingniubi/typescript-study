@@ -1,5 +1,5 @@
 //扩展局部变量的类型
-/* declare var String:StringConstructor;
+declare var String:StringConstructor;
 interface StringConstructor{
     new(value?:any):String;
     (value?:any):string;
@@ -7,8 +7,17 @@ interface StringConstructor{
 }
 interface String {
     toString():string;
+    double(): string;
 }
- */
+
+String.prototype.double = function(){
+    return this+this;
+}
+let result = new String("hello").double();//hellohello
+console.log(result);
+
+
+console.log(window.myName);
 //相同名称的interface会进行合并
 export {}
 declare global{
@@ -22,14 +31,7 @@ declare global{
 }
 
 
-String.prototype.double = function(){
-    return this+this;
-}
-let result = new String("hello").double();//hellohello
-console.log(result);
 
-
-console.log(window.myName);
 
 
 

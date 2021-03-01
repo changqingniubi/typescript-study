@@ -25,26 +25,34 @@ function getName(animal: Animal) {
    }
 }
 //null保护
-function getFirstLetter(s:string|null){
-    /* if(s === null){
+function getFirstLetter(s: string | null) {
+    //第一种方式是加上null判断
+    if (s == null) {
         return '';
-    } */
-    //s = s||'';
-   /*  function log() {
-        s=s||'';
     }
-    log(); */
-   return s!.charAt(0);;
+    //第二种处理是增加一个或的处理
+    //s = s || '';
+    return s.charAt(0);
 }
+//它并不能处理一些复杂的判断，需要加非空断言操作符
+function getFirstLetter2(s: string | null) {
+    function log() {
+        console.log(s!.trim());
+    }
+    s = s || '';
+    log();
+    return s.charAt(0);
+}
+
 //链判断运算符
-/* let a = {b:2}
+let a:any;
 let result = a?.b;
 // a===null?undefined:a.b;
 console.log(result);
 let x = 'b';
 a?.[x];
 a?.b();
-a?.[x]() */
+a?.[x]() 
 //链判断运算符处于stage1 ts也不支持
 
 //可辨识的联合类型

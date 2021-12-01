@@ -11,12 +11,14 @@
     "esModuleInterop":false,
     "declaration": true,
     "baseUrl": "./",
+    "strict": true, /* Enable all strict type-checking options. 启用完全的严格类型检查 */
     "paths": {
       "*":["types/*"]
     }
   },
   "include":[
     "src/**/*",
+    "problem-train/**/*",
     //"node_modules/**/*",
     "typings/**/*"
   ]

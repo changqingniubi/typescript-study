@@ -11,6 +11,7 @@
     "esModuleInterop":false,
     "declaration": true,
     "baseUrl": "./",
+    "jsx": "preserve",
     "strict": true, /* Enable all strict type-checking options. 启用完全的严格类型检查 */
     "paths": {
       "*":["types/*"]

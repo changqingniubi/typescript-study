@@ -2,19 +2,23 @@
  * @Description: 
  * @Author: changqing
  * @Date: 2021-12-02 20:40:37
- * @LastEditTime: 2021-12-02 21:00:46
+ * @LastEditTime: 2021-12-03 13:18:11
  * @LastEditors: changqing
  * @Usage: 
  */
 
-export default {}
-
 // 驼峰命名转横杠命名
 
-type Upper = 'A' | 'B' | 'C' | 'D'|'E'|'F'|'G'|'H'|'I'|'J'|'K'|'L'|'M'|'N'|'O'|'P'|'Q'|'R'|'S'|'T'|'U'|'V'|'W'|'X'|'Y'|'Z';
 
-type KebabCase<S extends string, P extends Upper=Upper> =
-  S extends `${P}${infer R}` ? KebabCase<`${Lowercase<P>}-${R}`, P> : S;
+export default {}
+
+type RemoveFirst<T> = T extends `-${infer L}`?L:T;
+
+type KebabCase<T extends string, Prev extends string=''> =
+T extends `${infer L}${infer R}` ? KebabCase<R, `${Prev}${
+  L extends Uppercase<L>?`-${ Lowercase<L>}`:L
+}`> : RemoveFirst<Prev>;
+
 
 type a1 = KebabCase<'HandleOpenFlag'>           // handle-open-flag
 type a2 = KebabCase<'OpenFlag'>                 // open-flag

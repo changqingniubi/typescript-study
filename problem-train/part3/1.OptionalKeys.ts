@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: changqing
  * @Date: 2021-12-06 16:54:45
- * @LastEditTime: 2021-12-06 20:12:42
+ * @LastEditTime: 2021-12-07 21:41:06
  * @LastEditors: changqing
  * @Usage: 
  */
@@ -45,7 +45,11 @@ type ExcludeUndefined<T>= {[K in keyof T]:Exclude<T[K],undefined>}
 //方式一
 //export type OptionalKeys<T> = { [K in keyof T]-?: undefined extends ExcludeUndefined<T>[K] ? K : never }[keyof T]
 // 方式二
-export type OptionalKeys<T, K = keyof T> = K extends keyof T ? (undefined extends ExcludeUndefined<T>[K] ? K : never) : never
+//export type OptionalKeys<T, K = keyof T> = K extends keyof T ? (undefined extends ExcludeUndefined<T>[K] ? K : never) : never
+
+// 方式三
+export type OptionalKeys<T, K = keyof T> = K extends keyof T ? (Omit<T, K> extends T ? K : never): never
+
 
 type a11 = OptionalKeys<{ foo: number|undefined, bar?: string, flag: boolean }>        // bar
 type a22 = OptionalKeys<{ foo: number, bar?: string }>                       // bar

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: changqing
  * @Date: 2021-12-07 23:18:04
- * @LastEditTime: 2021-12-07 23:54:17
+ * @LastEditTime: 2021-12-08 17:26:23
  * @LastEditors: changqing
  * @Usage: 
  */
@@ -26,3 +26,8 @@ type UnionToTuple2<T, TT = T, R extends any[] = []> = [T] extends [R[number]] ? 
 
 type a = UnionToTuple<1 | 2 | 3>                      // [1,2,3]
 type b = UnionToTuple<1 | string | boolean>           // [1,string,boolean]
+type c = UnionToTuple<any>  
+
+type Q1 = UnionToTuple<string | number | symbol>                                // [symbol,number,string]
+type Q2 = UnionToTuple<string | number | symbol | boolean>                      // [boolean,symbol,number,string]
+type Q3 = UnionToTuple<string | number | symbol | boolean | [boolean]>          // [boolean,[boolean],symbol,number,string]// [any]
